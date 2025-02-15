@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "homepage": "https://https://cold-digger2-0.vercel.app/"
+
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
