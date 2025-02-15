@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+from dotenv import load_dotenv
+load_dotenv()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,10 +26,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-9qc=xwg&4er8=ul74&5tw!d%v&dxy!8toacnt7w5zzj)^kou9a'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 # Application definition
+
+import os
+import dj_database_url
+
+DEBUG = False
+
+ALLOWED_HOSTS = ['your-backend-app.onrender.com']
+
+# Configure PostgreSQL database
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+}
+
+# Serve static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -48,8 +68,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
 ]
-
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
